@@ -103,13 +103,38 @@ To customize the website for your own use:
 
 ## Deployment
 
-This project is configured for deployment to GitHub Pages:
+This project supports two deployment methods to GitHub Pages:
+
+### Method 1: Automatic Deployment with GitHub Actions (Recommended)
+
+The repository includes a GitHub Actions workflow that automatically builds and deploys your site whenever you push to the `main` or `master` branch.
+
+**Setup Steps:**
+
+1. Go to your repository on GitHub
+2. Navigate to **Settings** → **Pages**
+3. Under **Source**, select **GitHub Actions**
+4. Push your changes to the `main` or `master` branch
+5. The workflow will automatically build and deploy your site
+6. Your site will be available at `https://prmcdonald.github.io`
+
+The workflow runs on every push to the main branch and can also be triggered manually from the Actions tab.
+
+**Workflow Status:**
+
+You can monitor deployment status in the **Actions** tab of your GitHub repository.
+
+### Method 2: Manual Deployment with gh-pages
+
+Alternatively, you can manually deploy using the command line:
 
 ```bash
 npm run deploy
 ```
 
 This will build the project and deploy it to the `gh-pages` branch of your repository.
+
+**Note:** If using manual deployment, you'll need to configure GitHub Pages to use the `gh-pages` branch in your repository settings.
 
 ## Learn More
 

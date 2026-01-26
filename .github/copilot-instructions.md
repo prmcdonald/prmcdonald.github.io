@@ -101,3 +101,31 @@ This applies especially to: performance issues, flaky tests, configuration probl
 - Don't add bandaid fixes → Take time for clean solutions
 
 ---
+
+## Website Color Scheme
+
+This section defines the main color palette for the website. Use these colors consistently across all components and styling.
+
+### Main Accent Colors
+
+- **Primary Accent**: `#0094c6` (Blue)
+- **Secondary Accent**: `#f15025` (Orange/Red)
+
+### Neutral Colors
+
+- **Light Neutral**: `#e8ebe4` (Off-white/Light Gray)
+- **Dark Neutral**: `#454545` (Dark Gray)
+
+### Additional Colors
+
+- **Deep Navy**: `#000022` (Near Black with Blue Undertone)
+- **Navy Blue**: `#001242` (Dark Blue)
+
+### Usage Guidelines
+
+- Use the main accent colors for primary actions, highlights, and key interactive elements
+- Use neutral colors for backgrounds, text, and supporting UI elements
+- Use additional colors for depth, shadows, or specialized components
+- Ensure sufficient color contrast for accessibility (WCAG AA minimum)
+
+---

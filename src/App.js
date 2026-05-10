@@ -1,28 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navigation from './components/Navigation';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
-import Portfolio from './pages/Portfolio';
-import Resume from './pages/Resume';
-import Blog from './pages/Blog';
-import './App.css';
+import Writing from './pages/Writing';
+import Post from './pages/Post';
+import Projects from './pages/Projects';
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/resume" element={<Resume />} />
-          <Route path="/blog" element={<Blog />} />
-        </Routes>
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/writing" element={<Writing />} />
+        <Route path="/writing/:id" element={<Post />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/projects" element={<Projects />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

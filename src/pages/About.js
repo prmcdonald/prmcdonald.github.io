@@ -3,36 +3,49 @@ import MonoLabel from '../components/MonoLabel';
 import NavDesktop from '../components/NavDesktop';
 import { useHour } from '../hooks/useHour';
 import { useWeather } from '../hooks/useWeather';
+import { useWindowWidth } from '../hooks/useWindowWidth';
 import { NOW_ITEMS, fontSerif, fontSans, tintForHour } from '../data/posts';
 
 export default function About() {
   const hour = useHour();
   const weather = useWeather();
+  const width = useWindowWidth();
+  const isMobile = width < 768;
   const tint = tintForHour(hour);
+  const isNight = hour < 6.5 || hour > 19;
+
+  const bg = isNight ? '#1a1814' : '#faf6ee';
+  const fg = isNight ? '#f5f1ea' : '#1a1814';
+  const border = isNight ? 'rgba(255,255,255,0.10)' : 'rgba(26,24,20,0.12)';
 
   return (
-    <div style={{ width: '100%', minHeight: '100vh', background: '#faf6ee', color: '#1a1814', fontFamily: fontSans }}>
+    <div style={{ width: '100%', minHeight: '100vh', background: bg, color: fg, fontFamily: fontSans }}>
       <div style={{ position: 'sticky', top: 0, zIndex: 10 }}>
         <WeatherSky weather={weather} />
         <NavDesktop active="about" />
       </div>
 
       {/* Header */}
-      <div style={{ padding: '48px 56px 32px', borderBottom: '1px solid rgba(26,24,20,0.12)' }}>
+      <div style={{ padding: isMobile ? '24px 20px 20px' : '48px 56px 32px', borderBottom: '1px solid ' + border }}>
         <MonoLabel style={{ marginBottom: 18 }}>About · the long version</MonoLabel>
         <h1 style={{
-          fontFamily: fontSerif, fontSize: 96, lineHeight: 0.86,
-          letterSpacing: -7, fontWeight: 400, margin: 0, maxWidth: 1100,
+          fontFamily: fontSerif, fontSize: 'clamp(36px, 10vw, 96px)', lineHeight: 0.86,
+          letterSpacing: isMobile ? -2 : -7, fontWeight: 400, margin: 0, maxWidth: 1100,
         }}>
           Hi, I'm <em>Preston.</em> I do product, and a lot of other things{' '}
           <em>badly enough</em> to enjoy them.
         </h1>
       </div>
 
-      {/* Two-column body */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 56, padding: '48px 56px 80px' }}>
+      {/* Body */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1.3fr 1fr',
+        gap: isMobile ? 24 : 56,
+        padding: isMobile ? '24px 20px 48px' : '48px 56px 80px',
+      }}>
         {/* Left: bio text */}
-        <div style={{ fontSize: 18, lineHeight: 1.6 }}>
+        <div style={{ fontSize: isMobile ? 16 : 18, lineHeight: 1.6 }}>
           <p style={{ marginTop: 0 }}>
             I'm a product manager, currently shipping things at a software company in
             New York. Before that: a couple of startups, a brief stint as the worst
@@ -61,8 +74,8 @@ export default function About() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
           {/* Day job */}
           <div style={{
-            background: tint.accent + '14',
-            border: '1px solid ' + tint.accent + '40',
+            background: tint.accent + (isNight ? '25' : '14'),
+            border: '1px solid ' + tint.accent + (isNight ? '50' : '40'),
             borderRadius: 14, padding: '20px 22px',
           }}>
             <MonoLabel style={{ marginBottom: 8 }}>Day job</MonoLabel>
@@ -73,7 +86,7 @@ export default function About() {
           </div>
 
           {/* Currently */}
-          <div style={{ background: '#fff', border: '1px solid rgba(26,24,20,0.12)', borderRadius: 14, padding: '20px 22px' }}>
+          <div style={{ background: isNight ? 'rgba(255,255,255,0.06)' : '#fff', border: '1px solid ' + border, borderRadius: 14, padding: '20px 22px' }}>
             <MonoLabel style={{ marginBottom: 12 }}>Currently</MonoLabel>
             {NOW_ITEMS.map((n) => (
               <div key={n.label} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13, lineHeight: 1.85 }}>
@@ -86,7 +99,11 @@ export default function About() {
           </div>
 
           {/* Find me */}
-          <div style={{ background: '#1a1814', color: '#f5f1ea', borderRadius: 14, padding: '20px 22px' }}>
+          <div style={{
+            background: isNight ? 'rgba(255,255,255,0.08)' : '#1a1814',
+            color: '#f5f1ea',
+            borderRadius: 14, padding: '20px 22px',
+          }}>
             <MonoLabel style={{ marginBottom: 12, color: '#f5f1ea' }}>Find me</MonoLabel>
             <div style={{ fontSize: 13.5, lineHeight: 1.85 }}>
               {[

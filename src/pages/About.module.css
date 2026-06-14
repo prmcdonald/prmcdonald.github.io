@@ -1,0 +1,101 @@
+.page {
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+}
+
+.skyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 10vw, 96px);
+  line-height: 0.86;
+  letter-spacing: -0.06em;
+  font-weight: 400;
+  margin: 0;
+  max-width: 1100px;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  padding: 24px 20px 48px;
+}
+
+.bio {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.bio p:first-child {
+  margin-top: 0;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card {
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+
+.cardSub {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.row span:first-child {
+  opacity: 0.6;
+}
+
+.row span:last-child {
+  text-align: right;
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 48px 56px 32px;
+  }
+
+  .body {
+    grid-template-columns: 1.3fr 1fr;
+    gap: 56px;
+    padding: 48px 56px 80px;
+  }
+
+  .bio {
+    font-size: 18px;
+  }
+}

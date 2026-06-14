@@ -1,8 +1,8 @@
 import { fontMono } from '../data/posts';
 
-export default function MonoLabel({ children, style = {} }) {
+export default function MonoLabel({ children, style = {}, className }) {
   return (
-    <div style={{
+    <div className={className} style={{
       fontFamily: fontMono,
       fontSize: 10,
       letterSpacing: 1.5,

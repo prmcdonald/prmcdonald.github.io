@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { fontMono } from '../data/posts';
 
-export default function NavDrawer({ routes, fg, isNight, stroke }) {
+export default function NavDrawer({ routes, fg, isNight, stroke, triggerClassName }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -16,19 +16,21 @@ export default function NavDrawer({ routes, fg, isNight, stroke }) {
 
   return (
     <>
-      {/* Hamburger button */}
-      <button
-        onClick={() => setOpen(true)}
-        style={{
-          background: 'none', border: 'none', cursor: 'pointer',
-          padding: 4, display: 'flex', flexDirection: 'column', gap: 5,
-        }}
-        aria-label="Open menu"
-      >
-        {[0, 1, 2].map((i) => (
-          <span key={i} style={{ display: 'block', width: 20, height: 2, background: fg, borderRadius: 1 }} />
-        ))}
-      </button>
+      {/* Hamburger button — wrapper class controls responsive visibility */}
+      <span className={triggerClassName}>
+        <button
+          onClick={() => setOpen(true)}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            padding: 4, display: 'flex', flexDirection: 'column', gap: 5,
+          }}
+          aria-label="Open menu"
+        >
+          {[0, 1, 2].map((i) => (
+            <span key={i} style={{ display: 'block', width: 20, height: 2, background: fg, borderRadius: 1 }} />
+          ))}
+        </button>
+      </span>
 
       {createPortal(
         <>

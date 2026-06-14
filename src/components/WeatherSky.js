@@ -56,10 +56,12 @@ const WEATHER_PALETTES = {
   ],
 };
 
+const clampByte = (v) => Math.max(0, Math.min(255, Math.round(v)));
+
 function lerpColor(a, b, t) {
   const ar = parseInt(a.slice(1,3),16), ag = parseInt(a.slice(3,5),16), ab = parseInt(a.slice(5,7),16);
   const br = parseInt(b.slice(1,3),16), bg = parseInt(b.slice(3,5),16), bb = parseInt(b.slice(5,7),16);
-  return `rgb(${Math.round(ar+(br-ar)*t)},${Math.round(ag+(bg-ag)*t)},${Math.round(ab+(bb-ab)*t)})`;
+  return `rgb(${clampByte(ar+(br-ar)*t)},${clampByte(ag+(bg-ag)*t)},${clampByte(ab+(bb-ab)*t)})`;
 }
 
 function hexToRgb(c) {
@@ -69,16 +71,41 @@ function hexToRgb(c) {
   return { r: 255, g: 255, b: 255 };
 }
 
+// Lerp between two colors given as hex or rgb() strings, returning an rgb() string.
+function lerpRgb(a, b, t) {
+  const A = hexToRgb(a), B = hexToRgb(b);
+  return `rgb(${clampByte(A.r+(B.r-A.r)*t)},${clampByte(A.g+(B.g-A.g)*t)},${clampByte(A.b+(B.b-A.b)*t)})`;
+}
+
+// Sample the sky gradient color at vertical fraction f (0 = top, 1 = bottom).
+// Mirrors the gradient stops used when painting the sky (top@0, mid@0.55, bot@1).
+function sampleSky(pal, f) {
+  const c = Math.max(0, Math.min(1, f));
+  return c <= 0.55
+    ? lerpRgb(pal.top, pal.mid, c / 0.55)
+    : lerpRgb(pal.mid, pal.bot, (c - 0.55) / 0.45);
+}
+
 function getPalette(weather, hour) {
   const stops = WEATHER_PALETTES[weather] || WEATHER_PALETTES.clear;
-  let i = 0;
-  for (let k = 0; k < stops.length - 1; k++) {
-    if (hour >= stops[k][0] && hour <= stops[k+1][0]) { i = k; break; }
-    if (hour >= stops[stops.length-1][0]) i = stops.length - 2;
+  const last = stops.length - 1;
+  let i, h0, h1, j;
+  if (hour >= stops[last][0]) {
+    // Past the final stop: wrap cyclically toward the first stop (treated as +24h)
+    // so 22:00→24:00 interpolates back to the midnight colors instead of extrapolating.
+    i = last; j = 0;
+    h0 = stops[last][0]; h1 = stops[0][0] + 24;
+  } else {
+    i = 0;
+    for (let k = 0; k < last; k++) {
+      if (hour >= stops[k][0] && hour <= stops[k+1][0]) { i = k; break; }
+    }
+    j = i + 1;
+    h0 = stops[i][0]; h1 = stops[j][0];
   }
-  const [h0, c0, s0] = stops[i];
-  const [h1, c1, s1] = stops[i+1];
-  const t = (hour - h0) / (h1 - h0 || 1);
+  const [, c0, s0] = stops[i];
+  const [, c1, s1] = stops[j];
+  const t = Math.max(0, Math.min(1, (hour - h0) / (h1 - h0 || 1)));
   return {
     top: lerpColor(c0[0], c1[0], t),
     mid: lerpColor(c0[1], c1[1], t),
@@ -204,9 +231,11 @@ export default function WeatherSky({ time, weather = 'clear', intensity = 0.7, s
         ctx.fillStyle = pal.sun;
         ctx.beginPath(); ctx.arc(cx, cy, sunR, 0, Math.PI * 2); ctx.fill();
         if (cel.kind === 'moon') {
-          ctx.globalCompositeOperation = 'destination-out';
+          // Carve the crescent by overpainting an offset disk in the local sky color,
+          // not destination-out (which would punch a transparent hole through the canvas
+          // and reveal the page background behind it).
+          ctx.fillStyle = sampleSky(pal, cy / h);
           ctx.beginPath(); ctx.arc(cx - sunR * 0.35, cy - sunR * 0.05, sunR * 0.92, 0, Math.PI * 2); ctx.fill();
-          ctx.globalCompositeOperation = 'source-over';
         }
       }
 

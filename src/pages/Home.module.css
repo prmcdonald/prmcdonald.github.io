@@ -1,0 +1,284 @@
+/* ── Home: single tree, stacked by default, rich layout from 1024px ── */
+
+.page {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+  color: var(--fg);
+}
+
+/* Sky stays put while content scrolls over it (mobile + desktop alike) */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ── Top meta bar ── */
+.meta {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  color: var(--fg);
+}
+
+.page[data-night='true'] .meta {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.metaLabelFull {
+  display: none;
+}
+
+.links {
+  display: none;
+}
+
+.link {
+  color: var(--fg);
+  text-decoration: none;
+  opacity: 0.78;
+}
+
+.menuButton {
+  display: flex;
+}
+
+/* ── Body ── */
+.body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 8px 20px 48px;
+}
+
+.topRegion {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.page[data-night='true'] .hero {
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.5);
+}
+
+.heroName {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -3px;
+  font-size: clamp(56px, 14vw, 88px);
+  margin: 0;
+}
+
+.heroFirst {
+  display: block;
+}
+
+.heroLast {
+  display: block;
+  font-style: italic;
+  margin-left: 0.18em;
+}
+
+.heroTagline {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2.4vw, 22px);
+  font-style: italic;
+  line-height: 1.35;
+  margin: 14px 0 0;
+  opacity: 0.92;
+  max-width: 640px;
+}
+
+.now {
+  width: 100%;
+}
+
+.nowRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--fg);
+}
+
+.nowRow span:first-child {
+  opacity: 0.6;
+}
+
+.nowRow span:last-child {
+  text-align: right;
+}
+
+/* ── Recent writing ── */
+.recentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 10px;
+}
+
+.recentBrowse {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--fg);
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.recentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: var(--fg);
+  min-width: 0;
+  padding: 10px 18px 14px;
+  border-top: 1px solid var(--stroke);
+}
+
+.cardMeta {
+  opacity: 0.55;
+  margin-bottom: 6px;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.1;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.cardBlurb {
+  font-size: 12px;
+  color: var(--sub-fg);
+  line-height: 1.45;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Only the featured card shows its blurb when stacked */
+.card:not(.featured) .cardBlurb {
+  display: none;
+}
+
+.cardRating {
+  margin-top: 6px;
+}
+
+/* ── Desktop ── */
+@media (min-width: 1024px) {
+  .meta {
+    padding: 20px 48px;
+  }
+
+  .metaLabelFull {
+    display: inline;
+  }
+
+  .metaLabelShort {
+    display: none;
+  }
+
+  .links {
+    display: flex;
+    gap: 28px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .menuButton {
+    display: none;
+  }
+
+  .body {
+    padding: 0 48px 48px;
+  }
+
+  .topRegion {
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+    padding-top: 40px;
+  }
+
+  .hero {
+    max-width: 62%;
+  }
+
+  .heroName {
+    letter-spacing: -7px;
+    font-size: clamp(72px, 9vw, 130px);
+  }
+
+  .heroTagline {
+    font-size: 22px;
+    margin-top: 18px;
+  }
+
+  .now {
+    width: 250px;
+    flex: none;
+  }
+
+  .recentGrid {
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+  }
+
+  .card {
+    border-top: none;
+    border-right: 1px solid var(--stroke);
+    padding: 6px clamp(8px, 1.3vw, 18px) 18px;
+  }
+
+  .card:last-child {
+    border-right: none;
+  }
+
+  /* Blurbs return for every card on desktop */
+  .card:not(.featured) .cardBlurb {
+    display: -webkit-box;
+  }
+
+  .cardTitle {
+    font-size: clamp(14px, 1.6vw, 22px);
+  }
+
+  .featured {
+    padding-left: clamp(10px, 1.6vw, 22px);
+    padding-right: clamp(10px, 1.6vw, 22px);
+  }
+
+  .featured .cardTitle {
+    font-size: clamp(18px, 2.2vw, 30px);
+    -webkit-line-clamp: 3;
+  }
+
+  .featured .cardBlurb {
+    font-size: 13px;
+  }
+}

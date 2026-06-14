@@ -1,0 +1,66 @@
+.bar {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--nav-fg);
+  border-bottom: 1px solid var(--nav-stroke);
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  letter-spacing: -0.4px;
+  font-style: italic;
+  text-decoration: none;
+  color: var(--nav-fg);
+}
+
+.logoDot {
+  font-style: normal;
+}
+
+/* Link list: hidden on phones, shown from 768px up */
+.links {
+  display: none;
+}
+
+.link {
+  color: var(--nav-fg);
+  text-decoration: none;
+  opacity: 0.6;
+  padding-bottom: 2px;
+}
+
+.linkActive {
+  opacity: 1;
+  border-bottom: 1px solid var(--nav-fg);
+}
+
+/* Hamburger: shown on phones, hidden from 768px up */
+.menuButton {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .bar {
+    padding: 24px 56px;
+  }
+
+  .links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .menuButton {
+    display: none;
+  }
+}

@@ -19,10 +19,10 @@ export default function NavDesktop({ active }) {
   return (
     <div className={styles.bar} style={{ '--nav-fg': fg, '--nav-stroke': stroke }}>
       <div className={styles.leftGroup}>
-        <StarToggle fg={fg} />
         <NavLink to="/" className={styles.logo}>
           preston <span className={styles.logoDot}>·</span> mcdonald
         </NavLink>
+        <StarToggle fg={fg} />
       </div>
 
       {/* Inline links — CSS shows these from 768px up */}

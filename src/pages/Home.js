@@ -43,11 +43,11 @@ export default function Home() {
       {/* Top meta bar */}
       <div className={styles.meta}>
         <div className={styles.metaLeft}>
-          <StarToggle fg={fg} />
           <MonoLabel style={{ color: fg, opacity: 0.85 }}>
             <span className={styles.metaLabelShort}>{`◐ Chicago · ${hh}:${mm}`}</span>
             <span className={styles.metaLabelFull}>{`◐ Chicago · ${hh}:${mm} · ${weather} · ${tint.name}`}</span>
           </MonoLabel>
+          <StarToggle fg={fg} />
         </div>
 
         <div className={styles.links}>

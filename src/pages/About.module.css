@@ -30,6 +30,7 @@
 .body {
   display: grid;
   grid-template-columns: 1fr;
+  align-items: start;
   gap: 24px;
   padding: 24px 20px 48px;
 }

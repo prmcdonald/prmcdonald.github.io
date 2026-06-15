@@ -52,7 +52,7 @@ export const POSTS = [
 export const RATINGS = {
   highly:      { label: 'Highly recommend',        glyph: '●●●●', color: '#2a6e9a', bg: 'rgba(42,110,154,0.12)',  dark: '#1e5070' },
   recommend:   { label: 'Recommend',               glyph: '●●●○', color: '#1f7a6b', bg: 'rgba(31,122,107,0.12)',  dark: '#155248' },
-  situational: { label: 'Recommend situationally', glyph: '●●○○', color: '#c08a2c', bg: 'rgba(192,138,44,0.14)',  dark: '#7e5a18' },
+  situational: { label: 'Neutral',                 glyph: '●●○○', color: '#c08a2c', bg: 'rgba(192,138,44,0.14)',  dark: '#7e5a18' },
   not:         { label: 'Do not recommend',        glyph: '●○○○', color: '#9a3a3a', bg: 'rgba(154,58,58,0.10)',   dark: '#7a2d2d' },
 };
 

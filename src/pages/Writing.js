@@ -118,7 +118,7 @@ export default function Writing() {
           />
           <FilterPill
             label="Rating" value={rating} onChange={setRating} accent={tint.accent} fg={fg} bg={bg}
-            options={[['all','Any'],['highly','●●●● Highly'],['recommend','●●●○ Recommend'],['situational','●●○○ Sometimes'],['not','●○○○ Skip']]}
+            options={[['all','Any'],['highly','●●●● Highly'],['recommend','●●●○ Recommend'],['situational','●●○○ Neutral'],['not','●○○○ Skip']]}
           />
           <FilterPill
             label="Tag" value={tag} onChange={setTag} accent={tint.accent} fg={fg} bg={bg}

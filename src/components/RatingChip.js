@@ -1,6 +1,6 @@
 import { RATINGS, fontMono } from '../data/posts';
 
-export default function RatingChip({ kind, size = 'sm' }) {
+export default function RatingChip({ kind, size = 'sm', dark = false }) {
   if (!kind) return null;
   const r = RATINGS[kind];
   const padY = size === 'sm' ? 3 : 5;
@@ -9,7 +9,7 @@ export default function RatingChip({ kind, size = 'sm' }) {
   return (
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: 6,
-      background: r.bg, color: r.dark,
+      background: dark ? r.darkBg : r.lightBg, color: dark ? r.darkText : r.lightText,
       padding: `${padY}px ${padX}px`, borderRadius: 4,
       fontFamily: fontMono, fontSize: fs, letterSpacing: 1, textTransform: 'uppercase',
       whiteSpace: 'nowrap',

@@ -108,7 +108,7 @@ export default function Home() {
                 </MonoLabel>
                 <div className={styles.cardTitle}>{p.title}</div>
                 <div className={styles.cardBlurb}>{p.blurb}</div>
-                {p.rating && <div className={styles.cardRating}><RatingChip kind={p.rating} /></div>}
+                {p.rating && <div className={styles.cardRating}><RatingChip kind={p.rating} dark={isNight} /></div>}
               </Link>
             ))}
           </div>

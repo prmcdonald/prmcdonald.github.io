@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import NavDrawer from './NavDrawer';
+import StarToggle from './StarToggle';
 import { useHour } from '../hooks/useHour';
 import styles from './NavDesktop.module.css';
 
@@ -17,9 +18,12 @@ export default function NavDesktop({ active }) {
 
   return (
     <div className={styles.bar} style={{ '--nav-fg': fg, '--nav-stroke': stroke }}>
-      <NavLink to="/" className={styles.logo}>
-        preston <span className={styles.logoDot}>·</span> mcdonald
-      </NavLink>
+      <div className={styles.leftGroup}>
+        <StarToggle fg={fg} />
+        <NavLink to="/" className={styles.logo}>
+          preston <span className={styles.logoDot}>·</span> mcdonald
+        </NavLink>
+      </div>
 
       {/* Inline links — CSS shows these from 768px up */}
       <div className={styles.links}>

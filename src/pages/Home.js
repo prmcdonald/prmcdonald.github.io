@@ -4,9 +4,11 @@ import GlassCard from '../components/GlassCard';
 import MonoLabel from '../components/MonoLabel';
 import RatingChip from '../components/RatingChip';
 import NavDrawer from '../components/NavDrawer';
+import StarToggle from '../components/StarToggle';
 import { useHour } from '../hooks/useHour';
 import { useWeather } from '../hooks/useWeather';
-import { POSTS, NOW_ITEMS, fmtDate, tintForHour } from '../data/posts';
+import { useContent } from '../content/useContent';
+import { fmtDate, tintForHour } from '../data/posts';
 import styles from './Home.module.css';
 
 const NAV_ROUTES = { About: '/about', Writing: '/writing', Projects: '/projects' };
@@ -14,6 +16,7 @@ const NAV_ROUTES = { About: '/about', Writing: '/writing', Projects: '/projects'
 export default function Home() {
   const hour = useHour();
   const weather = useWeather();
+  const c = useContent();
   const isNight = hour < 6.5 || hour > 19;
   const tint = tintForHour(hour);
 
@@ -25,7 +28,7 @@ export default function Home() {
   const mm = Math.floor((hour % 1) * 60).toString().padStart(2, '0');
 
   // One ordered list — featured first, then the four most recent
-  const cards = POSTS.slice(0, 5);
+  const cards = c.posts.slice(0, 5);
 
   return (
     <div
@@ -39,10 +42,13 @@ export default function Home() {
 
       {/* Top meta bar */}
       <div className={styles.meta}>
-        <MonoLabel style={{ color: fg, opacity: 0.85 }}>
-          <span className={styles.metaLabelShort}>{`◐ Chicago · ${hh}:${mm}`}</span>
-          <span className={styles.metaLabelFull}>{`◐ Chicago · ${hh}:${mm} · ${weather} · ${tint.name}`}</span>
-        </MonoLabel>
+        <div className={styles.metaLeft}>
+          <StarToggle fg={fg} />
+          <MonoLabel style={{ color: fg, opacity: 0.85 }}>
+            <span className={styles.metaLabelShort}>{`◐ Chicago · ${hh}:${mm}`}</span>
+            <span className={styles.metaLabelFull}>{`◐ Chicago · ${hh}:${mm} · ${weather} · ${tint.name}`}</span>
+          </MonoLabel>
+        </div>
 
         <div className={styles.links}>
           {Object.entries(NAV_ROUTES).map(([label, to]) => (
@@ -68,17 +74,14 @@ export default function Home() {
               <span className={styles.heroFirst}>Preston</span>
               <span className={styles.heroLast}>McDonald</span>
             </h1>
-            <p className={styles.heroTagline}>
-              Product manager, reluctant baker, game-finisher — keeping notes on
-              everything I'm actually spending time on.
-            </p>
+            <p className={styles.heroTagline}>{c.home.tagline}</p>
           </section>
 
           {/* Now widget */}
           <aside className={styles.now}>
             <GlassCard dark={isNight}>
               <MonoLabel style={{ marginBottom: 10, color: fg }}>◉ Right now</MonoLabel>
-              {NOW_ITEMS.map((n) => (
+              {c.now.map((n) => (
                 <div key={n.label} className={styles.nowRow}>
                   <span>{n.label}</span>
                   <span>{n.value}</span>
@@ -93,7 +96,7 @@ export default function Home() {
           <div className={styles.recentHeader}>
             <MonoLabel style={{ color: fg, opacity: 0.75 }}>▼ Recent writing</MonoLabel>
             <Link to="/writing" className={styles.recentBrowse}>
-              Browse all {POSTS.length} →
+              Browse all {c.posts.length} →
             </Link>
           </div>
           <div className={styles.recentGrid}>

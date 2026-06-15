@@ -6,7 +6,8 @@ import NavDesktop from '../components/NavDesktop';
 import RatingChip from '../components/RatingChip';
 import FilterPill from '../components/FilterPill';
 import { usePageTheme } from '../hooks/usePageTheme';
-import { POSTS, fmtDate } from '../data/posts';
+import { useContent } from '../content/useContent';
+import { fmtDate } from '../data/posts';
 import styles from './Writing.module.css';
 
 function PostRow({ p, last }) {
@@ -49,6 +50,7 @@ function PostRow({ p, last }) {
 
 export default function Writing() {
   const { weather, tint, isNight, vars } = usePageTheme();
+  const { posts, writing } = useContent();
 
   const fg = isNight ? '#f5f1ea' : '#1a1814';
   const bg = isNight ? '#1a1814' : '#faf6ee';
@@ -59,9 +61,9 @@ export default function Writing() {
   const [rating, setRating] = useState('all');
   const [tag, setTag] = useState('all');
 
-  const allTags = Array.from(new Set(POSTS.flatMap((p) => p.tags))).sort();
+  const allTags = Array.from(new Set(posts.flatMap((p) => p.tags))).sort();
 
-  const filtered = POSTS.filter((p) => {
+  const filtered = posts.filter((p) => {
     if (type !== 'all' && p.cat !== type) return false;
     if (rating !== 'all' && p.rating !== rating) return false;
     if (tag !== 'all' && !p.tags.includes(tag)) return false;
@@ -86,14 +88,10 @@ export default function Writing() {
       {/* Page heading */}
       <div className={styles.heading}>
         <MonoLabel style={{ marginBottom: 18 }}>
-          The index · {filtered.length} of {POSTS.length} posts
+          The index · {filtered.length} of {posts.length} posts
         </MonoLabel>
-        <h1 className={styles.title}>
-          Everything I've <em>bothered to write down</em>.
-        </h1>
-        <p className={styles.lede}>
-          Reviews, essays, dev notes. Filter by what you're in the mood for, or just scroll.
-        </p>
+        <h1 className={styles.title}>{writing.title}</h1>
+        <p className={styles.lede}>{writing.lede}</p>
       </div>
 
       {/* Sticky search + filter bar */}

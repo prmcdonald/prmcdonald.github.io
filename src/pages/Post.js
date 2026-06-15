@@ -4,55 +4,18 @@ import MonoLabel from '../components/MonoLabel';
 import NavDesktop from '../components/NavDesktop';
 import RatingChip from '../components/RatingChip';
 import { usePageTheme } from '../hooks/usePageTheme';
-import { POSTS, fmtDate } from '../data/posts';
+import { useContent } from '../content/useContent';
+import { fmtDate } from '../data/posts';
 import styles from './Post.module.css';
-
-const OUTER_WILDS_BODY = (
-  <>
-    <p style={{ marginTop: 0 }}>
-      I am four years late to <em>Outer Wilds</em>, which is the kind of late
-      where two friends have already given up trying to convince me. I started
-      it on a Saturday, said "just an hour," and woke up on a Sunday morning
-      having seen the sun explode{' '}
-      <span className={styles.highlight}>thirty-one times</span>.
-    </p>
-    <p>
-      The thing the game gets right — the thing I keep thinking about, in a
-      way I have not been able to shake at work — is that it never gives you a
-      quest. There is no checklist. The only thing pushing you forward is your
-      own curiosity, plus the gentle pressure of knowing the universe is going
-      to end in twenty-two minutes whether you are ready or not.
-    </p>
-    <p className={styles.sidenoteAnchor}>
-      At work I have been calling this the <strong>curiosity loop</strong>. Most
-      roadmaps optimize for <em>execution</em> — making sure the next thing is
-      the right thing.
-      <span className={styles.sidenote}>
-        Sidenote · the only roadmap technique I trust is the one where every
-        quarter, three things on it embarrass me later. Otherwise it was
-        fiction all the way down.
-      </span>
-    </p>
-    <p>
-      <em>Outer Wilds</em> optimizes for the moment <em>before</em> execution
-      — the moment where you notice a thing that doesn't quite fit, and you go
-      "huh." That moment is, I think, what good product work feels like, and
-      also what almost no PM tool is set up to encourage.
-    </p>
-    <p>
-      I won't spoil the ending. I will say: the ending is the only ending the
-      game could have had, which is the highest praise I know how to give.
-    </p>
-  </>
-);
 
 export default function Post() {
   const { id } = useParams();
   const { weather, isNight, vars } = usePageTheme();
+  const { posts, postsById } = useContent();
 
-  const post = POSTS.find((p) => p.id === id) || POSTS[0];
-  const postIndex = POSTS.findIndex((p) => p.id === post.id);
-  const nextPost = POSTS[postIndex + 1] || null;
+  const post = postsById[id] || posts[0];
+  const postIndex = posts.findIndex((p) => p.id === post.id);
+  const nextPost = posts[postIndex + 1] || null;
 
   return (
     <div className={styles.page} data-night={isNight} style={vars}>
@@ -88,7 +51,7 @@ export default function Post() {
 
           {/* Body */}
           <div className={styles.body}>
-            {post.id === 'outer-wilds' ? OUTER_WILDS_BODY : (
+            {post.body ? post.body(styles) : (
               <p style={{ marginTop: 0, fontStyle: 'italic', opacity: 0.6 }}>
                 Full post coming soon.
               </p>

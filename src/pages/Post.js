@@ -40,7 +40,7 @@ export default function Post() {
 
           {post.rating && (
             <div className={styles.ratingWrap}>
-              <RatingChip kind={post.rating} size="lg" />
+              <RatingChip kind={post.rating} size="lg" dark={isNight} />
             </div>
           )}
 

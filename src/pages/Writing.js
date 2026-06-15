@@ -10,7 +10,7 @@ import { useContent } from '../content/useContent';
 import { fmtDate } from '../data/posts';
 import styles from './Writing.module.css';
 
-function PostRow({ p, last }) {
+function PostRow({ p, last, dark }) {
   return (
     <Link to={`/writing/${p.id}`} className={`${styles.row} ${last ? styles.rowLast : ''}`}>
       <time className={styles.rowDate}>{fmtDate(p.date)}</time>
@@ -36,12 +36,12 @@ function PostRow({ p, last }) {
         </div>
 
         {/* Mobile rating */}
-        {p.rating && <div className={styles.ratingMobile}><RatingChip kind={p.rating} /></div>}
+        {p.rating && <div className={styles.ratingMobile}><RatingChip kind={p.rating} dark={dark} /></div>}
       </div>
 
       {/* Desktop aside: rating + read time */}
       <div className={styles.aside}>
-        {p.rating && <RatingChip kind={p.rating} />}
+        {p.rating && <RatingChip kind={p.rating} dark={dark} />}
         <div className={styles.readMin}>{p.read} min</div>
       </div>
     </Link>
@@ -136,7 +136,7 @@ export default function Writing() {
               <div className={styles.yearLabel}>{y}</div>
               <div>
                 {byYear[y].map((p, i) => (
-                  <PostRow key={p.id} p={p} last={i === byYear[y].length - 1} />
+                  <PostRow key={p.id} p={p} last={i === byYear[y].length - 1} dark={isNight} />
                 ))}
               </div>
             </div>

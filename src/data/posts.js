@@ -15,11 +15,13 @@ export const POSTS = [
   { id: 'half-baked',           date: '2026-02-15', cat: 'essay',  sub: 'Essay',      tags: ['craft', 'writing'],    rating: null,          read: 5 },
 ];
 
+// Each rating carries WCAG-AA contrast pairs for both themes (text ≥ 4.5:1 on its
+// chip background). Light text is used on the dark/night theme, dark text on light.
 export const RATINGS = {
-  highly:      { label: 'Highly recommend',        glyph: '●●●●', color: '#2a6e9a', bg: 'rgba(42,110,154,0.12)',  dark: '#1e5070' },
-  recommend:   { label: 'Recommend',               glyph: '●●●○', color: '#1f7a6b', bg: 'rgba(31,122,107,0.12)',  dark: '#155248' },
-  situational: { label: 'Neutral',                 glyph: '●●○○', color: '#c08a2c', bg: 'rgba(192,138,44,0.14)',  dark: '#7e5a18' },
-  not:         { label: 'Do not recommend',        glyph: '●○○○', color: '#9a3a3a', bg: 'rgba(154,58,58,0.10)',   dark: '#7a2d2d' },
+  highly:      { label: 'Highly recommend', glyph: '●●●●', lightText: '#1e5070', lightBg: 'rgba(42,110,154,0.12)', darkText: '#8ecbf0', darkBg: 'rgba(86,160,205,0.22)' },
+  recommend:   { label: 'Recommend',        glyph: '●●●○', lightText: '#155248', lightBg: 'rgba(31,122,107,0.12)', darkText: '#74d6c0', darkBg: 'rgba(45,170,150,0.22)' },
+  situational: { label: 'Neutral',          glyph: '●●○○', lightText: '#7e5a18', lightBg: 'rgba(192,138,44,0.14)', darkText: '#e6c172', darkBg: 'rgba(200,150,60,0.22)' },
+  not:         { label: 'Do not recommend', glyph: '●○○○', lightText: '#7a2d2d', lightBg: 'rgba(154,58,58,0.10)',  darkText: '#f0a3a3', darkBg: 'rgba(190,90,90,0.22)' },
 };
 
 export const NOW_ITEMS = [

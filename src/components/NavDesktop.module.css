@@ -10,6 +10,12 @@
   z-index: 1;
 }
 
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .logo {
   font-family: var(--font-serif);
   font-size: 22px;

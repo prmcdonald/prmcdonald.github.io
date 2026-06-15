@@ -2,10 +2,12 @@ import WeatherSky from '../components/WeatherSky';
 import MonoLabel from '../components/MonoLabel';
 import NavDesktop from '../components/NavDesktop';
 import { usePageTheme } from '../hooks/usePageTheme';
+import { useContent } from '../content/useContent';
 import styles from './Projects.module.css';
 
 export default function Projects() {
   const { weather, isNight, vars } = usePageTheme();
+  const { projects } = useContent();
 
   return (
     <div className={styles.page} data-night={isNight} style={vars}>
@@ -16,9 +18,7 @@ export default function Projects() {
 
       <div className={styles.heading}>
         <MonoLabel style={{ marginBottom: 18 }}>Projects · coming soon</MonoLabel>
-        <h1 className={styles.title}>
-          Things I've <em>built</em>.
-        </h1>
+        <h1 className={styles.title}>{projects.title}</h1>
       </div>
     </div>
   );

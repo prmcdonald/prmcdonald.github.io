@@ -1,0 +1,21 @@
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 2px;
+  margin: 0;
+  line-height: 1;
+  font-size: 15px;
+  color: var(--star-fg, currentColor);
+  opacity: 0.7;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.button[aria-pressed='true'] {
+  opacity: 1;
+  transform: scale(1.05);
+}
